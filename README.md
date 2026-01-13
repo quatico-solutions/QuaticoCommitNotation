@@ -121,4 +121,4 @@ No verification:
 
 ## Appendix
 
-This notation is based on [Arlo's Commit Notation](https://github.com/arlobelshee/ArlosCommitNotation) with Quatico extensions (T, E, A, C, S).
+This notation is based on Arlo's Commit Notation v1 with Quatico extensions (T, E, A, C, S).
