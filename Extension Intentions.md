@@ -1,17 +1,59 @@
 # Extension Intentions
 
-Each project can define a set of extension intentions. Each project should define which extension codes it uses. It is up to each project to define the approaches for each of the 4 risk levels.
+Each project can define extension intentions beyond the core F, B, R, D. This document describes the extensions used at Quatico.
 
-These are some common intentions, each used in several projects. Each also lists alternatives used in projects that don't use the code.
+| Code | Name | Use | Alternatives |
+|------|------|-----|--------------|
+| `T` | Test-only | Alter automated tests without altering functionality. May include code that just throws `NotImplementedException`. | Use `F` or `B` depending on what the test validates. Use `R` for refactoring within test code. |
+| `E` | Environment | Non-code changes affecting dev setup, tooling, or configuration that don't affect program behavior. | Treat the environment as a product where users are team members. |
+| `A` | Automated | Tool-assisted changes: IDE refactoring (rename, extract, move), search & replace, formatters, linters with auto-fix, AI-assisted refactoring. | Use the intention matching the underlying goal (`R`, `F`, etc.). Prefer `A` when the method is more relevant than the goal, or changes span multiple intentions. |
+| `C` | Comment | Comment-only changes. Does not include comments visible to doc-generation tools (JSDoc, JavaDoc). | Use `D`. |
+| `S` | Spec | Changes to formal specs or design docs kept in source control. | Use `D`, keep specs outside source control, or use test suite as spec. |
+| `*` | Unknown | Multiple unrelated changes, just getting it checked in. Usually `***`. | Require each commit to have exactly one intention. |
 
-| Prefix | Name | Intention | Alternatives |
-| --- | --- | --- | --- |
-| `M`/`m` | Merge | Merge branches | Use `F`, `B`, or `R`, based on the main intention of the branch, with risk level based on maximum for any individual commit in the branch. Optionally leave blank for merge from main to a feature branch. |
-| `t` | Test-only | Alter automated tests without altering functionality. May include code-generating code that just throws a `NotImplementedException` or similar approaches. | Use `f` or `b`, depending on which kind of work this test is going to validate. Use `r` if this is a refactoring purely within test code. It is a lower-case letter unless you also change product code. |
-| `e` | Environment | Environment (non-code) changes that affect development setup, and other tooling changes that don't affect program behavior (e.g. linting) | Consider the environment to be a product where the users are team members, and code it accordingly. |
-| `a` | Automated | Tool-assisted changes: IDE refactoring (rename, extract, move), search & replace, code formatters, linters with auto-fix, AI-assisted refactoring. Distinguishes machine-executed changes from manual edits. | Use the intention that matches the underlying goal: `r` for refactoring, `f` for features, etc. However, `a` is preferred when the *method* (tool-assisted) is more relevant than the goal, or when changes span multiple intentions. |
-| `c` | Comment | Changes comments only. Does not include comments that are visible to doc-generation tools. | Use `d`. |
-| `p` | Process | Changes some team process or working agreement. | Any of: <ul><li>Use a tacit, informal process.</li><li>Use `d`.</li><li>Keep your process definition outside of source control.</li></ul> |
-| `s` | Spec | Changes the spec or design. Used when team does formal specs or design reviews and keeps all such documents in the main product source, perhaps in the product code itself. | Any of: <ul><li>Use informal specs.</li><li>Use `d`.</li><li>Use your test suite as your only spec.</li><li>Keep your spec / design outside of source control.</li></ul> |
-| `n` | NOP | A commit with no changes (`--allow-empty`) | `r` |
-| `*` | Unknown / multiple | Made a bunch of changes and are just getting it checked in. No real way to validate safety, and may not even compile. Usually used at the highest risk level (`***`). | Don't allow this. Require each commit to do exactly one intention and document itself accordingly. |
+## Risk Level Examples
+
+### Test-only (T)
+
+| Code | Approach |
+|------|----------|
+| `t` | Refactoring purely within test code |
+| `T` | New test for existing behavior, all tests pass |
+| `T!!` | New test without running full suite |
+| `T**` | Incomplete test, WIP |
+
+### Environment (E)
+
+| Code | Approach |
+|------|----------|
+| `e` | Config change with no compilation impact |
+| `E` | Tooling change, verified working |
+| `E!!` | CI/CD change, not fully tested |
+| `E**` | Experimenting with build config |
+
+### Automated (A)
+
+| Code | Approach |
+|------|----------|
+| `a` | IDE rename/extract with type verification, compiler confirms no errors |
+| `A` | Tool-assisted with test verification |
+| `A!!` | Bulk operation (formatter, linter) manually reviewed |
+| `A**` | AI suggestions accepted without review |
+
+### Comment (C)
+
+| Code | Approach |
+|------|----------|
+| `c` | Comment change, verified byte-identical compilation |
+| `C` | Comment change in source file |
+| `C!!` | Large comment overhaul |
+| `C**` | Draft comments, needs review |
+
+### Spec (S)
+
+| Code | Approach |
+|------|----------|
+| `s` | Spec update matching implemented behavior |
+| `S` | Spec change, implementation follows |
+| `S!!` | Spec change, implementation pending |
+| `S**` | Draft spec for discussion |
