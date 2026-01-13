@@ -28,7 +28,7 @@ A commit notation that conveys **risk level** and **intention** in the first few
 |------|------|-----|
 | T | Test-only | Alter tests without altering functionality |
 | E | Environment | Dev setup, tooling, non-code changes |
-| A | Automated | Tool-assisted: IDE refactoring, formatters, AI |
+| A | Automated | Tool-assisted: IDE refactoring, formatters, linters (deterministic tools only, no AI/LLMs) |
 | C | Comment | Comment-only changes (not JSDoc/JavaDoc) |
 | S | Spec | Formal specification, design docs |
 | * | Unknown | Mixed changes, just checking in |
