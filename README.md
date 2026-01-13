@@ -108,6 +108,35 @@ Changes that don't impact the code, but do change documentation around the code.
 | `D!!` | Alters an important process. |
 | `D**` | Trying out a process change that is intended to gain info, not to work. |
 
+### Automated (Quatico Extension)
+
+Tool-assisted changes where the method of change (automated tooling) is more significant than the underlying intention. Use `A`/`a` when changes are made via IDE refactoring tools, search & replace, code formatters, linters with auto-fix, or AI-assisted refactoring.
+
+**When to use `A` vs `R`:**
+- Use `A` when the tool execution is the primary activity (e.g., "ran prettier on all files")
+- Use `R` when performing a specific, named refactoring that happens to use a tool
+- Use `A` when changes span multiple intentions or the tool made decisions
+
+**Known Risks**
+
+* Tool may have bugs or unexpected behavior.
+* Search & replace may match unintended patterns.
+* AI suggestions may introduce subtle logic changes.
+* Bulk operations may be hard to review thoroughly.
+
+| Code | Known Approaches |
+| --- | --- |
+| `a - ` | Provable tool refactoring: IDE "Rename Symbol", "Extract Method" with type system verification; compiler/linter confirms no errors. |
+| `A - ` | Tool-assisted with test verification: ran tests after each tool operation, all pass. |
+| `A!!` | Tool-assisted without full test coverage, or bulk operations manually reviewed. |
+| `A**` | Unverified bulk search/replace, mass regex, or AI suggestions accepted without review. |
+
+**Examples**
+- `a - Rename getUserData to fetchUserProfile` (IDE rename with TypeScript verification)
+- `A - Extract interface IUserService` (IDE extract, tests pass)
+- `A!! Format all files with prettier` (bulk format, manually reviewed)
+- `A** Apply AI-suggested refactoring across 20 files` (not fully verified)
+
 ## Extension Intentions
 
 The basic intention annotations are comprehensive to describe any kind of change, but it may be useful to extend the notation to your project to provide additional detail that is useful in your context. Read more about [Extension Intensions](Extension%20Intentions.md).
