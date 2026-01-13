@@ -125,7 +125,7 @@ No verification:
 |------|----------|
 | `f` | Examples: Local/focused change validated in DEV (no env-specific behavior); Extensive E2E tests; Text-only changes (i18n) apparent from diff |
 | `F` | Change ≤8 LoC, fully unit tested, includes new/changed tests |
-| `F!!` | Includes unit tests for new behavior |
+| `F!!` | Partially tested |
 | `F**` | No automatic tests, or unfinished implementation |
 
 ### Bugfix (B)
@@ -139,7 +139,7 @@ No verification:
 |------|----------|
 | `b` | Examples: Local/focused change validated in DEV; E2E tests; Text-only changes; Extend/fix existing test |
 | `B` | Reviewed with customer rep, ≤8 LoC, original behavior captured in test, includes changed test |
-| `B!!` | Includes unit tests for new behavior |
+| `B!!` | Partially tested |
 | `B**` | No automatic tests, or unfinished implementation |
 
 ### Refactoring (R)
