@@ -2,6 +2,17 @@
 
 A commit notation that conveys **risk level** and **intention** in the first few characters of each commit message.
 
+## Contents
+
+- [Quick Reference](#quick-reference)
+- [Commit Message Format](#commit-message-format)
+- [Risk Level Guidelines](#risk-level-guidelines)
+- [Intentions](#intentions)
+  - [Feature (F)](#feature-f) | [Bugfix (B)](#bugfix-b) | [Refactoring (R)](#refactoring-r) | [Documentation (D)](#documentation-d)
+  - [Test-only (T)](#test-only-t) | [Environment (E)](#environment-e) | [Automated (A)](#automated-a)
+  - [Comment (C)](#comment-c) | [Spec (S)](#spec-s) | [Unknown (*)](#unknown-)
+- [Appendix](#appendix)
+
 ## Quick Reference
 
 ### Risk Levels
@@ -81,6 +92,15 @@ Infrastructure changes may omit tickets:
 1. **Branch name**: Look for `XXX-123` pattern (e.g., `feature/FOO-123-login`)
 2. **Recent commits**: Check commits not yet merged to main branch
 3. **Ask**: Is this infrastructure (omit) or does it need a ticket number?
+
+### Quick Checklist
+
+- [ ] Intention identified (F/B/R/D/T/E/A/C/S/*)
+- [ ] Single intention per commit
+- [ ] Risk level assessed (lowercase/UPPER/!!/\*\*)
+- [ ] Active voice summary
+- [ ] Subject < 75 chars
+- [ ] Ticket on last line (if applicable)
 
 ## Risk Level Guidelines
 
